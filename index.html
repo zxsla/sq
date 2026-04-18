@@ -9,7 +9,7 @@
         margin: 0;
         padding: 0;
         font-family: system-ui, -apple-system, sans-serif;
-        background: linear-gradient(135deg, #1e0b4b, #4b0082) fixed;
+        background: linear-gradient(135deg, #0a2540, #1e5a8c, #00b4d8) fixed;
         color: #fff;
         min-height: 100vh;
         overflow-x: hidden;
@@ -22,41 +22,108 @@
         pointer-events: none;
         z-index: 1;
         animation: fall linear infinite;
-        text-shadow: 0 0 8px #fff;
+        text-shadow: 0 0 10px #fff;
         user-select: none;
     }
     @keyframes fall {
         to { transform: translateY(120vh) rotate(360deg); }
     }
-    header { text-align: center; padding: 25px 10px 10px; }
+
+    header {
+        text-align: center;
+        padding: 25px 10px 15px;
+        position: relative;
+    }
     .title {
-        font-size: 2.5rem;
+        font-size: 2.6rem;
         font-weight: bold;
         letter-spacing: 6px;
-        text-shadow: 0 0 20px rgba(255,255,255,0.8);
+        background: linear-gradient(90deg, #c026d3, #a855f7, #e0bbff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px rgba(192, 38, 211, 0.4);
     }
     .marquee {
         margin: 12px 0;
-        font-size: 1.2rem;
-        color: #ffd700;
+        font-size: 1.18rem;
+        color: #fff;
         white-space: nowrap;
         overflow: hidden;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        box-shadow: 0 0 12px rgba(0,0,0,0.4);
     }
     .marquee span {
         display: inline-block;
         padding-left: 100%;
         animation: marquee 28s linear infinite;
+        background: linear-gradient(90deg, #c026d3, #a855f7, #e0bbff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     @keyframes marquee {
         0% { transform: translateX(0); }
         100% { transform: translateX(-100%); }
     }
-    .time { font-size: 1.1rem; margin: 10px 0; font-weight: 500; }
+
+    .controls {
+        position: absolute;
+        top: 20px;
+        right: 15px;
+        display: flex;
+        gap: 10px;
+        z-index: 20;
+    }
+    .btn {
+        width: 42px;
+        height: 42px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+        color: white;
+        font-size: 1.3rem;
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    .login-btns {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin: 10px 0;
+        flex-wrap: wrap;
+    }
+    .login-btn {
+        padding: 9px 18px;
+        border: none;
+        border-radius: 30px;
+        color: white;
+        font-size: 0.95rem;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+    }
+    .cf { background: #f6821f; }
+    .github { background: #333; }
+
+    .time {
+        font-size: 1.1rem;
+        margin: 8px 0;
+        font-weight: 500;
+        background: linear-gradient(90deg, #c026d3, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 12px;
+    }
+
     .add-bar {
         display: flex;
         gap: 8px;
-        margin: 20px 12px;
+        margin: 20px 0;
         flex-wrap: wrap;
     }
     .add-bar input {
@@ -77,11 +144,11 @@
         border-radius: 12px;
         font-weight: bold;
     }
+
     .bookmarks {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
         gap: 14px;
-        padding: 0 12px;
     }
     .card {
         background: rgba(255,255,255,0.13);
@@ -108,7 +175,14 @@
         overflow: hidden;
     }
     .icon img { width: 100%; height: 100%; object-fit: cover; }
-    .name { font-size: 0.96rem; word-break: break-all; line-height: 1.35; }
+    .name {
+        font-size: 0.96rem;
+        word-break: break-all;
+        line-height: 1.35;
+        background: linear-gradient(90deg, #c026d3, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
     .actions {
         position: absolute;
         top: 8px;
@@ -126,6 +200,7 @@
         background: rgba(0,0,0,0.75);
         color: white;
     }
+
     .footer {
         position: fixed;
         bottom: 0;
@@ -137,7 +212,7 @@
         font-size: 0.88rem;
         z-index: 20;
     }
-    .footer a { color: #ffd700; text-decoration: none; }
+    .footer a { color: #e0bbff; text-decoration: none; }
     audio { display: none; }
 </style>
 </head>
@@ -149,110 +224,131 @@ for(let i = 0; i < 30; i++) {
   const s = document.createElement('div');
   s.className = 'snowflake';
   s.textContent = '❄';
-  s.style.left = Math.random() * 100 + '%';
-  s.style.fontSize = (12 + Math.random() * 20) + 'px';
-  s.style.opacity = 0.5 + Math.random() * 0.5;
-  s.style.animationDuration = (7 + Math.random() * 15) + 's';
-  s.style.animationDelay = '-' + Math.random() * 20 + 's';
+  s.style.left = Math.random()*100 + '%';
+  s.style.fontSize = (12 + Math.random()*20) + 'px';
+  s.style.opacity = 0.5 + Math.random()*0.5;
+  s.style.animationDuration = (7 + Math.random()*15) + 's';
+  s.style.animationDelay = '-' + Math.random()*20 + 's';
   document.body.appendChild(s);
 }
 </script>
 
 <header>
+    <div class="controls">
+        <button class="btn" id="musicBtn" onclick="toggleMusic()">♪</button>
+    </div>
     <div class="title">闪灵</div>
     <div class="marquee"><span>犯我中华者，虽远必诛！</span></div>
+    
+    <div class="login-btns">
+        <button class="login-btn cf" onclick="alert('Cloudflare 登录功能')">☁️ Cloudflare</button>
+        <button class="login-btn github" onclick="alert('GitHub 登录功能')">🐙 GitHub</button>
+    </div>
+    
     <div class="time" id="time"></div>
 </header>
 
-<div class="add-bar">
-    <input type="text" id="name" placeholder="书签名称">
-    <input type="text" id="url" placeholder="https://">
-    <input type="text" id="icon" placeholder="图标链接(可选)">
-    <button onclick="addBookmark()">添加</button>
-</div>
+<div class="container">
+    <div class="add-bar">
+        <input type="text" id="name" placeholder="书签名称">
+        <input type="text" id="url" placeholder="https://">
+        <input type="text" id="icon" placeholder="图标链接(可选)">
+        <button onclick="addBookmark()">添加</button>
+    </div>
 
-<div class="bookmarks" id="bookmarks"></div>
+    <div class="bookmarks" id="bookmarks"></div>
+</div>
 
 <audio id="bgm" loop>
     <source src="https://files.catbox.moe/0oluxu.flac" type="audio/flac">
 </audio>
 
 <div class="footer">
-    <a href="mailto:your@email.com">联系我</a>
+    <a href="https://twitter.com/Eternity2099" target="_blank">@Eternity2099</a>
 </div>
 
 <script>
 let bookmarks = JSON.parse(localStorage.getItem('flashBookmarks')) || [];
+let isPlaying = false;
+const audio = document.getElementById('bgm');
+
+function toggleMusic() {
+    const btn = document.getElementById('musicBtn');
+    if (isPlaying) {
+        audio.pause();
+        btn.textContent = '♪';
+    } else {
+        audio.play().catch(() => {});
+        btn.textContent = '⏸';
+    }
+    isPlaying = !isPlaying;
+}
 
 function renderBookmarks() {
-  const container = document.getElementById('bookmarks');
-  container.innerHTML = '';
-  bookmarks.forEach((item, i) => {
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.innerHTML = `
-      <div class="icon" ${item.icon ? `style="background-image:url('${item.icon}');background-size:cover"` : ''}>
-        ${!item.icon ? (item.name || '?')[0] : ''}
-      </div>
-      <div class="name">${item.name}</div>
-      <div class="actions">
-        <button onclick="editBookmark(${i});event.stopImmediatePropagation()">✎</button>
-        <button onclick="deleteBookmark(${i});event.stopImmediatePropagation()">×</button>
-      </div>
-    `;
-    div.onclick = (e) => {
-      if (!e.target.closest('.actions')) window.open(item.url, '_blank');
-    };
-    container.appendChild(div);
-  });
+    const container = document.getElementById('bookmarks');
+    container.innerHTML = '';
+    bookmarks.forEach((item, i) => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `
+            <div class="icon" ${item.icon ? `style="background-image:url('${item.icon}');background-size:cover"` : ''}>
+                ${!item.icon ? (item.name || '?')[0] : ''}
+            </div>
+            <div class="name">${item.name}</div>
+            <div class="actions">
+                <button onclick="editBookmark(${i});event.stopImmediatePropagation()">✎</button>
+                <button onclick="deleteBookmark(${i});event.stopImmediatePropagation()">×</button>
+            </div>
+        `;
+        div.onclick = (e) => {
+            if (!e.target.closest('.actions')) window.open(item.url, '_blank');
+        };
+        container.appendChild(div);
+    });
 }
 
 function addBookmark() {
-  const name = document.getElementById('name').value.trim();
-  const url = document.getElementById('url').value.trim();
-  const icon = document.getElementById('icon').value.trim();
-  if (!name || !url) return alert('名称和网址不能为空');
-  if (!url.startsWith('http')) return alert('请输入完整网址（https://）');
+    const name = document.getElementById('name').value.trim();
+    const url = document.getElementById('url').value.trim();
+    const icon = document.getElementById('icon').value.trim();
+    if (!name || !url) return alert('名称和网址不能为空');
+    if (!url.startsWith('http')) return alert('请输入完整网址（https://）');
 
-  bookmarks.push({ name, url, icon: icon || '' });
-  localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
-  renderBookmarks();
+    bookmarks.push({ name, url, icon: icon || '' });
+    localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
+    renderBookmarks();
 
-  document.getElementById('name').value = '';
-  document.getElementById('url').value = '';
-  document.getElementById('icon').value = '';
+    document.getElementById('name').value = '';
+    document.getElementById('url').value = '';
+    document.getElementById('icon').value = '';
 }
 
 function editBookmark(i) {
-  const item = bookmarks[i];
-  const n = prompt('修改名称', item.name);
-  if (n === null) return;
-  const u = prompt('修改网址', item.url);
-  if (u === null) return;
-  const ic = prompt('修改图标链接', item.icon || '');
-  bookmarks[i] = { name: n.trim() || item.name, url: u.trim() || item.url, icon: ic.trim() };
-  localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
-  renderBookmarks();
+    const item = bookmarks[i];
+    const n = prompt('修改名称', item.name);
+    if (n === null) return;
+    const u = prompt('修改网址', item.url);
+    if (u === null) return;
+    const ic = prompt('修改图标链接', item.icon || '');
+    bookmarks[i] = { name: n.trim() || item.name, url: u.trim() || item.url, icon: ic.trim() };
+    localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
+    renderBookmarks();
 }
 
 function deleteBookmark(i) {
-  if (confirm('确定删除这个书签吗？')) {
-    bookmarks.splice(i, 1);
-    localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
-    renderBookmarks();
-  }
+    if (confirm('确定删除这个书签吗？')) {
+        bookmarks.splice(i, 1);
+        localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
+        renderBookmarks();
+    }
 }
 
 function updateTime() {
-  const d = new Date();
-  document.getElementById('time').textContent = `${d.getFullYear()}年 ${d.getMonth()+1}月 ${d.getDate()}日 ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+    const d = new Date();
+    document.getElementById('time').textContent = `${d.getFullYear()}年 ${d.getMonth()+1}月 ${d.getDate()}日 ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
 }
 setInterval(updateTime, 30000);
 updateTime();
-
-document.addEventListener('click', () => {
-  document.getElementById('bgm').play().catch(() => {});
-}, {once: true});
 
 renderBookmarks();
 </script>
