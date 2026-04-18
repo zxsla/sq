@@ -6,140 +6,118 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
     body {
-        margin: 0;
-        padding: 0;
-        font-family: system-ui, -apple-system, sans-serif;
+        margin: 0; padding: 0; font-family: system-ui, sans-serif;
         background: linear-gradient(135deg, #0f4c81, #1e90ff, #00d4ff) fixed;
-        color: #fff;
-        min-height: 100vh;
-        overflow-x: hidden;
-        padding-bottom: 90px;
+        color: #fff; min-height: 100vh; overflow-x: hidden; padding-bottom: 90px;
     }
-    .snowflake {
-        position: fixed; top: -20px; color: #fff; pointer-events: none; z-index: 1;
-        animation: fall linear infinite; text-shadow: 0 0 10px #fff;
-    }
-    @keyframes fall { to { transform: translateY(120vh) rotate(360deg); } }
+    .snowflake { position:fixed; top:-20px; color:#fff; pointer-events:none; z-index:1; animation:fall linear infinite; text-shadow:0 0 10px #fff; }
+    @keyframes fall { to { transform:translateY(120vh) rotate(360deg); } }
 
-    header { text-align: center; padding: 25px 10px 15px; position: relative; }
+    header { text-align:center; padding:25px 10px 15px; position:relative; }
     .title {
-        font-size: 2.6rem; font-weight: bold; letter-spacing: 6px;
-        background: linear-gradient(90deg, #c026d3, #a855f7, #e0bbff);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        font-size:2.6rem; font-weight:bold; letter-spacing:6px;
+        background:linear-gradient(90deg,#c026d3,#a855f7,#e0bbff);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
     }
-    .marquee { margin: 12px 0; font-size: 1.18rem; white-space: nowrap; overflow: hidden; }
+    .marquee { margin:12px 0; font-size:1.18rem; white-space:nowrap; overflow:hidden; }
     .marquee span {
-        display: inline-block; padding-left: 100%; animation: marquee 28s linear infinite;
-        background: linear-gradient(90deg, #c026d3, #a855f7, #e0bbff);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        display:inline-block; padding-left:100%; animation:marquee 28s linear infinite;
+        background:linear-gradient(90deg,#c026d3,#a855f7,#e0bbff);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
     }
     @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-100%)} }
 
-    .controls { position: absolute; top: 20px; right: 15px; z-index: 20; }
+    .controls { position:absolute; top:20px; right:15px; z-index:20; }
     .btn {
-        width: 44px; height: 44px; border: none; border-radius: 50%;
-        background: rgba(255,255,255,0.25); color: white; font-size: 1.4rem;
-        backdrop-filter: blur(10px);
+        width:44px; height:44px; border:none; border-radius:50%;
+        background:rgba(255,255,255,0.25); color:white; font-size:1.4rem;
+        backdrop-filter:blur(10px);
     }
 
-    .login-btns { display: flex; justify-content: center; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
+    .login-btns { display:flex; justify-content:center; gap:12px; margin:12px 0; flex-wrap:wrap; }
     .login-btn {
-        padding: 9px 20px; border: none; border-radius: 30px; color: white;
-        background: rgba(255,255,255,0.18); backdrop-filter: blur(10px);
+        padding:9px 20px; border:none; border-radius:30px; color:white;
+        background:rgba(255,255,255,0.18); backdrop-filter:blur(10px);
     }
-    .cf { background: #f6821f; }
-    .github { background: #333; }
+    .cf { background:#f6821f; }
+    .github { background:#333; }
 
-    .time { font-size: 1.1rem; margin: 8px 0; color: #fff; }
+    .time { font-size:1.1rem; margin:8px 0; }
 
-    .container { max-width: 960px; margin: 0 auto; padding: 0 12px; }
+    .container { max-width:960px; margin:0 auto; padding:0 12px; }
 
-    /* 添加书签 - 双列布局（修复溢出） */
+    /* 添加书签 - 双列布局 */
     .add-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin: 20px 0;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+        margin:20px 0;
     }
     .add-section input {
-        padding: 14px;
-        border: none;
-        border-radius: 12px;
-        background: rgba(255,255,255,0.22);
-        color: white;
-        font-size: 1rem;
+        padding:14px; border:none; border-radius:12px;
+        background:rgba(255,255,255,0.22); color:white; font-size:1rem;
     }
-    .add-section input[type="file"] {
-        padding: 12px 10px;
-        font-size: 0.95rem;
-    }
+    .add-section input[type="file"] { padding:12px 10px; font-size:0.95rem; }
+
     .add-section button {
         grid-column: span 2;
-        padding: 15px;
-        background: #00ff9d;
-        color: #000;
-        border: none;
-        border-radius: 12px;
-        font-weight: bold;
-        font-size: 1.05rem;
+        padding:15px; background:#00ff9d; color:#000; border:none;
+        border-radius:12px; font-weight:bold; font-size:1.05rem;
     }
 
     .bookmarks {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-        gap: 14px;
-        justify-items: start;           /* 靠左对齐 */
+        display:grid;
+        grid-template-columns:repeat(auto-fit, minmax(165px,1fr));
+        gap:14px;
+        justify-items: start;   /* 靠左对齐 */
     }
     .card {
-        background: rgba(255,255,255,0.16);
-        border-radius: 16px;
-        padding: 14px;
-        width: 100%;
-        text-align: center;
-        position: relative;
-        transition: all 0.25s;
+        background:rgba(255,255,255,0.16);
+        border-radius:16px;
+        padding:14px;
+        width:100%;
+        text-align:center;
+        position:relative;
+        transition:all 0.25s;
     }
-    .card:hover { transform: scale(1.05); background: rgba(255,255,255,0.28); }
+    .card:hover { transform:scale(1.05); background:rgba(255,255,255,0.28); }
     .icon {
-        width: 58px; height: 58px; border-radius: 14px; margin: 0 auto 10px;
-        background: #fff; display: flex; align-items: center; justify-content: center;
-        font-size: 32px; overflow: hidden; background-size: cover; background-position: center;
+        width:58px; height:58px; border-radius:14px; margin:0 auto 10px;
+        background:#fff; background-size:cover; background-position:center;
+        display:flex; align-items:center; justify-content:center; overflow:hidden;
     }
     .name {
-        font-size: 0.96rem; word-break: break-all; line-height: 1.3;
-        background: linear-gradient(90deg, #c026d3, #a855f7);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        font-size:0.96rem; word-break:break-all; line-height:1.3;
+        background:linear-gradient(90deg,#c026d3,#a855f7);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
     }
     .actions {
-        position: absolute; top: 8px; right: 8px; display: none; gap: 5px;
+        position:absolute; top:8px; right:8px; display:none; gap:5px;
     }
-    .card:hover .actions { display: flex; }
+    .card:hover .actions { display:flex; }
     .actions button {
-        width: 26px; height: 26px; border: none; border-radius: 50%;
-        font-size: 14px; background: rgba(0,0,0,0.75); color: white;
+        width:26px; height:26px; border:none; border-radius:50%;
+        font-size:14px; background:rgba(0,0,0,0.75); color:white;
     }
 
     .footer {
-        position: fixed; bottom: 0; left: 0; right: 0; text-align: center;
-        padding: 14px; background: rgba(0,0,0,0.5); font-size: 0.88rem; z-index: 20;
+        position:fixed; bottom:0; left:0; right:0; text-align:center;
+        padding:14px; background:rgba(0,0,0,0.5); font-size:0.88rem; z-index:20;
     }
-    .footer a { color: #e0bbff; text-decoration: none; }
-    audio { display: none; }
 </style>
 </head>
 <body>
 
 <script>
 // 雪花
-for(let i = 0; i < 30; i++) {
-  const s = document.createElement('div');
-  s.className = 'snowflake';
-  s.textContent = '❄';
-  s.style.left = Math.random()*100 + '%';
-  s.style.fontSize = (12 + Math.random()*20) + 'px';
-  s.style.opacity = 0.6 + Math.random()*0.4;
-  s.style.animationDuration = (7 + Math.random()*15) + 's';
-  s.style.animationDelay = '-' + Math.random()*20 + 's';
+for(let i=0; i<30; i++){
+  const s=document.createElement('div');
+  s.className='snowflake'; s.textContent='❄';
+  s.style.left=Math.random()*100+'%';
+  s.style.fontSize=(12+Math.random()*20)+'px';
+  s.style.opacity=0.6+Math.random()*0.4;
+  s.style.animationDuration=(7+Math.random()*15)+'s';
+  s.style.animationDelay='-'+Math.random()*20+'s';
   document.body.appendChild(s);
 }
 </script>
@@ -170,9 +148,7 @@ for(let i = 0; i < 30; i++) {
     <div class="bookmarks" id="bookmarks"></div>
 </div>
 
-<audio id="bgm" loop>
-    <source src="https://files.catbox.moe/0oluxu.flac" type="audio/flac">
-</audio>
+<audio id="bgm" loop><source src="https://files.catbox.moe/0oluxu.flac" type="audio/flac"></audio>
 
 <div class="footer">
     <a href="https://twitter.com/Eternity2099" target="_blank">@Eternity2099</a>
@@ -186,7 +162,7 @@ const audio = document.getElementById('bgm');
 function toggleMusic() {
     const btn = document.getElementById('musicBtn');
     if (isPlaying) { audio.pause(); btn.textContent = '♪'; }
-    else { audio.play().catch(() => {}); btn.textContent = '⏸'; }
+    else { audio.play().catch(()=>{}); btn.textContent = '⏸'; }
     isPlaying = !isPlaying;
 }
 
@@ -197,16 +173,14 @@ function renderBookmarks() {
         const div = document.createElement('div');
         div.className = 'card';
         div.innerHTML = `
-            <div class="icon" style="background-image: url('${item.icon || ''}')"></div>
+            <div class="icon" style="background-image:url('${item.icon||''}')"></div>
             <div class="name">${item.name}</div>
             <div class="actions">
                 <button onclick="editBookmark(${i});event.stopImmediatePropagation()">✎</button>
                 <button onclick="deleteBookmark(${i});event.stopImmediatePropagation()">×</button>
             </div>
         `;
-        div.onclick = (e) => {
-            if (!e.target.closest('.actions')) window.open(item.url, '_blank');
-        };
+        div.onclick = (e) => { if(!e.target.closest('.actions')) window.open(item.url,'_blank'); };
         container.appendChild(div);
     });
 }
@@ -221,18 +195,17 @@ async function addBookmark() {
 
     let iconData = '';
     if (fileInput.files && fileInput.files[0]) {
-        iconData = await new Promise(resolve => {
+        iconData = await new Promise(r => {
             const reader = new FileReader();
-            reader.onload = e => resolve(e.target.result);
+            reader.onload = e => r(e.target.result);
             reader.readAsDataURL(fileInput.files[0]);
         });
     }
 
-    bookmarks.push({ name, url, icon: iconData });
+    bookmarks.push({name, url, icon: iconData});
     localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
     renderBookmarks();
 
-    // 清空
     document.getElementById('name').value = '';
     document.getElementById('url').value = '';
     fileInput.value = '';
@@ -240,24 +213,17 @@ async function addBookmark() {
 
 function editBookmark(i) {
     const item = bookmarks[i];
-    const n = prompt('修改名称', item.name);
-    if (n === null) return;
-    const u = prompt('修改网址', item.url);
-    if (u === null) return;
-    const ic = prompt('修改图标链接（留空保持原图标）', '');
-    
-    bookmarks[i] = { 
-        name: n.trim() || item.name, 
-        url: u.trim() || item.url, 
-        icon: ic.trim() || item.icon 
-    };
+    const n = prompt('修改名称', item.name); if(n===null) return;
+    const u = prompt('修改网址', item.url); if(u===null) return;
+    const ic = prompt('修改图标链接', '');
+    bookmarks[i] = {name: n.trim()||item.name, url: u.trim()||item.url, icon: ic.trim()||item.icon};
     localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
     renderBookmarks();
 }
 
 function deleteBookmark(i) {
-    if (confirm('确定删除这个书签吗？')) {
-        bookmarks.splice(i, 1);
+    if(confirm('确定删除？')) {
+        bookmarks.splice(i,1);
         localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
         renderBookmarks();
     }
