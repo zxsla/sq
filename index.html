@@ -8,58 +8,44 @@
     body {
         margin: 0; padding: 0; font-family: system-ui, sans-serif;
         background: linear-gradient(135deg, #0f4c81, #1e90ff, #00d4ff) fixed;
-        color: #fff; min-height: 100vh; overflow-x: hidden; padding-bottom: 80px;
+        color: #fff; min-height: 100vh; overflow-x: hidden; padding-bottom: 90px;
     }
-    .snowflake {
-        position: fixed; top: -20px; color: #fff; pointer-events: none; z-index: 1;
-        animation: fall linear infinite; text-shadow: 0 0 10px #fff;
-    }
-    @keyframes fall { to { transform: translateY(120vh) rotate(360deg); } }
+    .snowflake { position:fixed; top:-20px; color:#fff; pointer-events:none; z-index:1; animation:fall linear infinite; text-shadow:0 0 10px #fff; }
+    @keyframes fall { to { transform:translateY(120vh) rotate(360deg); } }
 
-    header { text-align: center; padding: 30px 10px 20px; position: relative; }
+    header { text-align:center; padding:30px 10px 20px; position:relative; }
     .title {
-        font-size: 2.8rem; font-weight: bold; letter-spacing: 8px;
-        background: linear-gradient(90deg, #c026d3, #a855f7, #e0bbff);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        font-size:2.8rem; font-weight:bold; letter-spacing:8px;
+        background:linear-gradient(90deg,#c026d3,#a855f7,#e0bbff);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
     }
-    .marquee { margin: 15px 0; font-size: 1.2rem; white-space: nowrap; overflow: hidden; }
+    .marquee { margin:15px 0; font-size:1.2rem; white-space:nowrap; overflow:hidden; }
     .marquee span {
-        display: inline-block; padding-left: 100%; animation: marquee 28s linear infinite;
-        background: linear-gradient(90deg, #c026d3, #a855f7, #e0bbff);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        display:inline-block; padding-left:100%; animation:marquee 28s linear infinite;
+        background:linear-gradient(90deg,#c026d3,#a855f7,#e0bbff);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
     }
     @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-100%)} }
 
-    .controls { position: absolute; top: 25px; right: 15px; z-index: 20; }
+    .controls { position:absolute; top:25px; right:15px; z-index:20; }
     .btn {
-        width: 46px; height: 46px; border: none; border-radius: 50%;
-        background: rgba(255,255,255,0.25); color: white; font-size: 1.5rem;
-        backdrop-filter: blur(10px);
+        width:46px; height:46px; border:none; border-radius:50%;
+        background:rgba(255,255,255,0.25); color:white; font-size:1.5rem;
     }
 
     .login-btns {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin: 20px 12px;
+        display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 12px;
     }
     .login-btn {
-        padding: 16px 10px;
-        border: none;
-        border-radius: 20px;
-        color: white;
-        font-size: 1.02rem;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+        padding:16px; border:none; border-radius:20px; color:white; font-size:1.02rem;
+        display:flex; align-items:center; justify-content:center; gap:8px;
     }
-    .cf { background: #f6821f; }
-    .github { background: #333; }
+    .cf { background:#f6821f; }
+    .github { background:#333; }
 
-    .time { font-size: 1.15rem; margin: 10px 0; text-align: center; }
+    .time { font-size:1.15rem; margin:10px 0; text-align:center; }
 
+    /* 添加书签 - 双列按钮 */
     .add-btns {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -73,7 +59,6 @@
         background: rgba(255,255,255,0.18);
         color: white;
         font-size: 1.05rem;
-        font-weight: 500;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -81,12 +66,25 @@
         backdrop-filter: blur(8px);
     }
 
+    /* 分类卡片 */
+    .category {
+        background: rgba(255,255,255,0.12);
+        border-radius: 16px;
+        margin: 15px 12px 10px;
+        padding: 12px;
+    }
+    .category-title {
+        font-size: 1.1rem; margin-bottom: 10px; padding-left: 8px;
+        background: linear-gradient(90deg, #c026d3, #a855f7);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
     .bookmarks {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
         gap: 14px;
         padding: 0 12px;
-        justify-items: start;
+        justify-items: start;   /* 靠左对齐 */
     }
     .card {
         background: rgba(255,255,255,0.16);
@@ -95,8 +93,9 @@
         width: 100%;
         text-align: center;
         position: relative;
+        transition: all 0.25s;
     }
-    .card:hover { background: rgba(255,255,255,0.28); transform: scale(1.03); }
+    .card:hover { transform: scale(1.05); background: rgba(255,255,255,0.28); }
     .icon {
         width: 58px; height: 58px; border-radius: 14px; margin: 0 auto 10px;
         background: #fff; background-size: cover; background-position: center;
@@ -105,6 +104,14 @@
         font-size: 0.96rem; word-break: break-all;
         background: linear-gradient(90deg, #c026d3, #a855f7);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .actions {
+        position: absolute; top: 8px; right: 8px; display: none; gap: 5px;
+    }
+    .card:hover .actions { display: flex; }
+    .actions button {
+        width: 26px; height: 26px; border: none; border-radius: 50%;
+        font-size: 14px; background: rgba(0,0,0,0.75); color: white;
     }
 
     .footer {
@@ -149,12 +156,16 @@ for(let i = 0; i < 30; i++) {
     <button class="add-btn" onclick="document.getElementById('iconFile').click()">
         📷 选择图片
     </button>
-    <input type="file" id="iconFile" accept="image/*" style="display:none" onchange="addBookmarkWithImage()">
+    <input type="file" id="iconFile" accept="image/*" style="display:none" onchange="addBookmark()">
     
-    <button class="add-btn" onclick="addBookmarkWithImage()">➕ 添加书签</button>
+    <button class="add-btn" onclick="addBookmark()">➕ 添加书签</button>
 </div>
 
-<div class="bookmarks" id="bookmarks"></div>
+<!-- 分类卡片 -->
+<div class="category">
+    <div class="category-title">常用</div>
+    <div class="bookmarks" id="bookmarks"></div>
+</div>
 
 <audio id="bgm" loop>
     <source src="https://files.catbox.moe/0oluxu.flac" type="audio/flac">
@@ -197,11 +208,11 @@ function renderBookmarks() {
     });
 }
 
-async function addBookmarkWithImage() {
+async function addBookmark() {
     const name = prompt("请输入书签名称");
     if (!name) return;
-    
-    const url = prompt("请输入网址 (https://)");
+
+    const url = prompt("请输入网址 (必须以 https:// 开头)");
     if (!url || !url.startsWith('http')) {
         alert("请输入完整网址");
         return;
@@ -216,7 +227,7 @@ async function addBookmarkWithImage() {
             reader.onload = e => resolve(e.target.result);
             reader.readAsDataURL(fileInput.files[0]);
         });
-        fileInput.value = ''; // 清空
+        fileInput.value = '';
     }
 
     bookmarks.push({ name, url, icon: iconData });
