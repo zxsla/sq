@@ -9,140 +9,79 @@
         margin: 0;
         padding: 0;
         font-family: system-ui, -apple-system, sans-serif;
-        background: linear-gradient(135deg, #0a2540, #1e5a8c, #00b4d8) fixed;
+        background: linear-gradient(135deg, #0f4c81, #1e90ff, #00d4ff) fixed;
         color: #fff;
         min-height: 100vh;
         overflow-x: hidden;
         padding-bottom: 80px;
     }
     .snowflake {
-        position: fixed;
-        top: -20px;
-        color: #fff;
-        pointer-events: none;
-        z-index: 1;
-        animation: fall linear infinite;
-        text-shadow: 0 0 10px #fff;
-        user-select: none;
+        position: fixed; top: -20px; color: #fff; pointer-events: none; z-index: 1;
+        animation: fall linear infinite; text-shadow: 0 0 10px #fff;
     }
-    @keyframes fall {
-        to { transform: translateY(120vh) rotate(360deg); }
-    }
+    @keyframes fall { to { transform: translateY(120vh) rotate(360deg); } }
 
-    header {
-        text-align: center;
-        padding: 25px 10px 15px;
-        position: relative;
-    }
+    header { text-align: center; padding: 25px 10px 15px; position: relative; }
     .title {
-        font-size: 2.6rem;
-        font-weight: bold;
-        letter-spacing: 6px;
+        font-size: 2.6rem; font-weight: bold; letter-spacing: 6px;
         background: linear-gradient(90deg, #c026d3, #a855f7, #e0bbff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0 0 20px rgba(192, 38, 211, 0.4);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .marquee {
-        margin: 12px 0;
-        font-size: 1.18rem;
-        color: #fff;
-        white-space: nowrap;
-        overflow: hidden;
-        box-shadow: 0 0 12px rgba(0,0,0,0.4);
-    }
+    .marquee { margin: 12px 0; font-size: 1.18rem; white-space: nowrap; overflow: hidden; }
     .marquee span {
-        display: inline-block;
-        padding-left: 100%;
-        animation: marquee 28s linear infinite;
+        display: inline-block; padding-left: 100%; animation: marquee 28s linear infinite;
         background: linear-gradient(90deg, #c026d3, #a855f7, #e0bbff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-100%); }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-100%)} }
+
+    .controls { position: absolute; top: 20px; right: 15px; z-index: 20; }
+    .btn {
+        width: 44px; height: 44px; border: none; border-radius: 50%;
+        background: rgba(255,255,255,0.25); color: white; font-size: 1.4rem;
+        backdrop-filter: blur(10px);
     }
 
-    .controls {
-        position: absolute;
-        top: 20px;
-        right: 15px;
-        display: flex;
-        gap: 10px;
-        z-index: 20;
-    }
-    .btn {
-        width: 42px;
-        height: 42px;
-        border: none;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.2);
-        color: white;
-        font-size: 1.3rem;
-        backdrop-filter: blur(10px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
-    .login-btns {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin: 10px 0;
-        flex-wrap: wrap;
-    }
+    .login-btns { display: flex; justify-content: center; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
     .login-btn {
-        padding: 9px 18px;
-        border: none;
-        border-radius: 30px;
-        color: white;
-        font-size: 0.95rem;
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(10px);
+        padding: 9px 20px; border: none; border-radius: 30px; color: white;
+        background: rgba(255,255,255,0.18); backdrop-filter: blur(10px);
     }
     .cf { background: #f6821f; }
     .github { background: #333; }
 
     .time {
-        font-size: 1.1rem;
-        margin: 8px 0;
-        font-weight: 500;
+        font-size: 1.1rem; margin: 8px 0;
         background: linear-gradient(90deg, #c026d3, #a855f7);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
 
-    .container {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 0 12px;
-    }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 12px; }
 
-    .add-bar {
-        display: flex;
-        gap: 8px;
+    /* 添加书签 - 双列布局 */
+    .add-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
         margin: 20px 0;
-        flex-wrap: wrap;
     }
-    .add-bar input {
-        flex: 1;
-        min-width: 120px;
+    .add-section input, .add-section input[type="file"] {
         padding: 14px;
         border: none;
         border-radius: 12px;
-        background: rgba(255,255,255,0.18);
+        background: rgba(255,255,255,0.22);
         color: white;
         font-size: 1rem;
     }
-    .add-bar button {
-        padding: 0 24px;
+    .add-section button {
+        grid-column: span 2;
+        padding: 15px;
         background: #00ff9d;
         color: #000;
         border: none;
         border-radius: 12px;
         font-weight: bold;
+        font-size: 1.05rem;
     }
 
     .bookmarks {
@@ -151,66 +90,36 @@
         gap: 14px;
     }
     .card {
-        background: rgba(255,255,255,0.13);
+        background: rgba(255,255,255,0.16);
         border-radius: 16px;
         padding: 14px;
         text-align: center;
         position: relative;
         transition: all 0.25s;
     }
-    .card:hover {
-        transform: scale(1.05);
-        background: rgba(255,255,255,0.25);
-    }
+    .card:hover { transform: scale(1.05); background: rgba(255,255,255,0.28); }
     .icon {
-        width: 58px;
-        height: 58px;
-        border-radius: 14px;
-        margin: 0 auto 10px;
-        background: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 32px;
-        overflow: hidden;
+        width: 58px; height: 58px; border-radius: 14px; margin: 0 auto 10px;
+        background: #fff; display: flex; align-items: center; justify-content: center;
+        font-size: 32px; overflow: hidden; background-size: cover; background-position: center;
     }
-    .icon img { width: 100%; height: 100%; object-fit: cover; }
     .name {
-        font-size: 0.96rem;
-        word-break: break-all;
-        line-height: 1.35;
+        font-size: 0.96rem; word-break: break-all;
         background: linear-gradient(90deg, #c026d3, #a855f7);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .actions {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        display: none;
-        gap: 5px;
+        position: absolute; top: 8px; right: 8px; display: none; gap: 5px;
     }
     .card:hover .actions { display: flex; }
     .actions button {
-        width: 26px;
-        height: 26px;
-        border: none;
-        border-radius: 50%;
-        font-size: 14px;
-        background: rgba(0,0,0,0.75);
-        color: white;
+        width: 26px; height: 26px; border: none; border-radius: 50%;
+        font-size: 14px; background: rgba(0,0,0,0.75); color: white;
     }
 
     .footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-        padding: 14px;
-        background: rgba(0,0,0,0.5);
-        font-size: 0.88rem;
-        z-index: 20;
+        position: fixed; bottom: 0; left: 0; right: 0; text-align: center;
+        padding: 14px; background: rgba(0,0,0,0.5); font-size: 0.88rem; z-index: 20;
     }
     .footer a { color: #e0bbff; text-decoration: none; }
     audio { display: none; }
@@ -219,14 +128,14 @@
 <body>
 
 <script>
-// 生成30片密集雪花
+// 30片密集雪花
 for(let i = 0; i < 30; i++) {
   const s = document.createElement('div');
   s.className = 'snowflake';
   s.textContent = '❄';
   s.style.left = Math.random()*100 + '%';
   s.style.fontSize = (12 + Math.random()*20) + 'px';
-  s.style.opacity = 0.5 + Math.random()*0.5;
+  s.style.opacity = 0.6 + Math.random()*0.4;
   s.style.animationDuration = (7 + Math.random()*15) + 's';
   s.style.animationDelay = '-' + Math.random()*20 + 's';
   document.body.appendChild(s);
@@ -249,11 +158,11 @@ for(let i = 0; i < 30; i++) {
 </header>
 
 <div class="container">
-    <div class="add-bar">
+    <div class="add-section">
         <input type="text" id="name" placeholder="书签名称">
         <input type="text" id="url" placeholder="https://">
-        <input type="text" id="icon" placeholder="图标链接(可选)">
-        <button onclick="addBookmark()">添加</button>
+        <input type="file" id="iconFile" accept="image/*">
+        <button onclick="addBookmark()">添加书签</button>
     </div>
 
     <div class="bookmarks" id="bookmarks"></div>
@@ -291,9 +200,7 @@ function renderBookmarks() {
         const div = document.createElement('div');
         div.className = 'card';
         div.innerHTML = `
-            <div class="icon" ${item.icon ? `style="background-image:url('${item.icon}');background-size:cover"` : ''}>
-                ${!item.icon ? (item.name || '?')[0] : ''}
-            </div>
+            <div class="icon" style="background-image: url('${item.icon || ''}')"></div>
             <div class="name">${item.name}</div>
             <div class="actions">
                 <button onclick="editBookmark(${i});event.stopImmediatePropagation()">✎</button>
@@ -307,20 +214,38 @@ function renderBookmarks() {
     });
 }
 
-function addBookmark() {
+async function addBookmark() {
     const name = document.getElementById('name').value.trim();
     const url = document.getElementById('url').value.trim();
-    const icon = document.getElementById('icon').value.trim();
+    const fileInput = document.getElementById('iconFile');
+    
     if (!name || !url) return alert('名称和网址不能为空');
     if (!url.startsWith('http')) return alert('请输入完整网址（https://）');
 
-    bookmarks.push({ name, url, icon: icon || '' });
+    let iconData = '';
+
+    // 如果选择了本地图片，转成 Base64
+    if (fileInput.files && fileInput.files[0]) {
+        iconData = await new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = e => resolve(e.target.result);
+            reader.readAsDataURL(fileInput.files[0]);
+        });
+    }
+
+    bookmarks.push({ 
+        name, 
+        url, 
+        icon: iconData || '' 
+    });
+
     localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
     renderBookmarks();
 
+    // 清空输入
     document.getElementById('name').value = '';
     document.getElementById('url').value = '';
-    document.getElementById('icon').value = '';
+    fileInput.value = '';
 }
 
 function editBookmark(i) {
@@ -329,8 +254,13 @@ function editBookmark(i) {
     if (n === null) return;
     const u = prompt('修改网址', item.url);
     if (u === null) return;
-    const ic = prompt('修改图标链接', item.icon || '');
-    bookmarks[i] = { name: n.trim() || item.name, url: u.trim() || item.url, icon: ic.trim() };
+    const ic = prompt('修改图标链接（留空则保持原图标）', '');
+    
+    bookmarks[i] = { 
+        name: n.trim() || item.name, 
+        url: u.trim() || item.url, 
+        icon: ic.trim() || item.icon 
+    };
     localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
     renderBookmarks();
 }
