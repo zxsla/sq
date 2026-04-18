@@ -13,7 +13,7 @@
         color: #fff;
         min-height: 100vh;
         overflow-x: hidden;
-        padding-bottom: 80px;
+        padding-bottom: 90px;
     }
     .snowflake {
         position: fixed; top: -20px; color: #fff; pointer-events: none; z-index: 1;
@@ -50,28 +50,28 @@
     .cf { background: #f6821f; }
     .github { background: #333; }
 
-    .time {
-        font-size: 1.1rem; margin: 8px 0;
-        background: linear-gradient(90deg, #c026d3, #a855f7);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
+    .time { font-size: 1.1rem; margin: 8px 0; color: #fff; }
 
     .container { max-width: 960px; margin: 0 auto; padding: 0 12px; }
 
-    /* 添加书签 - 双列布局 */
+    /* 添加书签 - 双列布局（修复溢出） */
     .add-section {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
         margin: 20px 0;
     }
-    .add-section input, .add-section input[type="file"] {
+    .add-section input {
         padding: 14px;
         border: none;
         border-radius: 12px;
         background: rgba(255,255,255,0.22);
         color: white;
         font-size: 1rem;
+    }
+    .add-section input[type="file"] {
+        padding: 12px 10px;
+        font-size: 0.95rem;
     }
     .add-section button {
         grid-column: span 2;
@@ -88,11 +88,13 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
         gap: 14px;
+        justify-items: start;           /* 靠左对齐 */
     }
     .card {
         background: rgba(255,255,255,0.16);
         border-radius: 16px;
         padding: 14px;
+        width: 100%;
         text-align: center;
         position: relative;
         transition: all 0.25s;
@@ -104,7 +106,7 @@
         font-size: 32px; overflow: hidden; background-size: cover; background-position: center;
     }
     .name {
-        font-size: 0.96rem; word-break: break-all;
+        font-size: 0.96rem; word-break: break-all; line-height: 1.3;
         background: linear-gradient(90deg, #c026d3, #a855f7);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
@@ -128,7 +130,7 @@
 <body>
 
 <script>
-// 30片密集雪花
+// 雪花
 for(let i = 0; i < 30; i++) {
   const s = document.createElement('div');
   s.className = 'snowflake';
@@ -183,13 +185,8 @@ const audio = document.getElementById('bgm');
 
 function toggleMusic() {
     const btn = document.getElementById('musicBtn');
-    if (isPlaying) {
-        audio.pause();
-        btn.textContent = '♪';
-    } else {
-        audio.play().catch(() => {});
-        btn.textContent = '⏸';
-    }
+    if (isPlaying) { audio.pause(); btn.textContent = '♪'; }
+    else { audio.play().catch(() => {}); btn.textContent = '⏸'; }
     isPlaying = !isPlaying;
 }
 
@@ -218,13 +215,11 @@ async function addBookmark() {
     const name = document.getElementById('name').value.trim();
     const url = document.getElementById('url').value.trim();
     const fileInput = document.getElementById('iconFile');
-    
+
     if (!name || !url) return alert('名称和网址不能为空');
     if (!url.startsWith('http')) return alert('请输入完整网址（https://）');
 
     let iconData = '';
-
-    // 如果选择了本地图片，转成 Base64
     if (fileInput.files && fileInput.files[0]) {
         iconData = await new Promise(resolve => {
             const reader = new FileReader();
@@ -233,16 +228,11 @@ async function addBookmark() {
         });
     }
 
-    bookmarks.push({ 
-        name, 
-        url, 
-        icon: iconData || '' 
-    });
-
+    bookmarks.push({ name, url, icon: iconData });
     localStorage.setItem('flashBookmarks', JSON.stringify(bookmarks));
     renderBookmarks();
 
-    // 清空输入
+    // 清空
     document.getElementById('name').value = '';
     document.getElementById('url').value = '';
     fileInput.value = '';
@@ -254,7 +244,7 @@ function editBookmark(i) {
     if (n === null) return;
     const u = prompt('修改网址', item.url);
     if (u === null) return;
-    const ic = prompt('修改图标链接（留空则保持原图标）', '');
+    const ic = prompt('修改图标链接（留空保持原图标）', '');
     
     bookmarks[i] = { 
         name: n.trim() || item.name, 
