@@ -8,35 +8,29 @@
     body {
         margin: 0; padding: 0; font-family: system-ui, sans-serif;
         background: linear-gradient(135deg, #1e3a8a, #3b82f6, #60a5fa) fixed;
-        color: #fff;
-        min-height: 100vh;
-        overflow-x: hidden;
-        padding-bottom: 90px;
+        color: #fff; min-height: 100vh; overflow-x: hidden; padding-bottom: 90px;
     }
-    .snowflake {
-        position: fixed; top: -20px; color: #fff; pointer-events: none; z-index: 1;
-        animation: fall linear infinite; text-shadow: 0 0 10px #fff;
-    }
-    @keyframes fall { to { transform: translateY(120vh) rotate(360deg); } }
+    .snowflake { position:fixed; top:-20px; color:#fff; pointer-events:none; z-index:1; animation:fall linear infinite; text-shadow:0 0 10px #fff; }
+    @keyframes fall { to { transform:translateY(120vh) rotate(360deg); } }
 
-    header { text-align: center; padding: 30px 10px 20px; position: relative; }
+    header { text-align:center; padding:30px 10px 20px; position:relative; }
     .title {
-        font-size: 2.8rem; font-weight: bold; letter-spacing: 8px;
-        background: linear-gradient(90deg, #c026d3, #a855f7, #e0bbff);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        font-size:2.8rem; font-weight:bold; letter-spacing:8px;
+        background:linear-gradient(90deg,#c026d3,#a855f7,#e0bbff);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
     }
-    .marquee { margin: 12px 0; font-size: 1.2rem; white-space: nowrap; overflow: hidden; }
+    .marquee { margin:12px 0; font-size:1.2rem; white-space:nowrap; overflow:hidden; }
     .marquee span {
-        display: inline-block; padding-left: 100%; animation: marquee 28s linear infinite;
-        background: linear-gradient(90deg, #c026d3, #a855f7, #e0bbff);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        display:inline-block; padding-left:100%; animation:marquee 28s linear infinite;
+        background:linear-gradient(90deg,#c026d3,#a855f7,#e0bbff);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
     }
     @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-100%)} }
 
-    .controls { position: absolute; top: 25px; right: 15px; z-index: 20; }
+    .controls { position:absolute; top:25px; right:15px; z-index:20; }
     .btn {
-        width: 46px; height: 46px; border: none; border-radius: 50%;
-        background: rgba(255,255,255,0.3); color: white; font-size: 1.5rem;
+        width:46px; height:46px; border:none; border-radius:50%;
+        background:rgba(255,255,255,0.3); color:white; font-size:1.5rem;
     }
 
     .top-btns {
@@ -60,10 +54,9 @@
 
     .time { font-size: 1.12rem; margin: 10px 0; text-align: center; }
 
-    /* 书签双列 - 这是重点 */
     .bookmarks {
         display: grid;
-        grid-template-columns: 1fr 1fr;   /* 强制双列并排 */
+        grid-template-columns: 1fr 1fr;   /* 双列并排 */
         gap: 14px;
         padding: 0 12px;
     }
@@ -126,8 +119,8 @@ for(let i = 0; i < 30; i++) {
 </header>
 
 <div class="top-btns">
-    <button class="top-btn" onclick="alert('Cloudflare 登录功能')">☁️ Cloudflare</button>
-    <button class="top-btn" onclick="alert('GitHub 登录功能')">🐙 GitHub</button>
+    <button class="top-btn" onclick="window.open('https://dash.cloudflare.com', '_blank')">☁️ Cloudflare</button>
+    <button class="top-btn" onclick="window.open('https://github.com/login', '_blank')">🐙 GitHub</button>
     <button class="top-btn" onclick="document.getElementById('iconFile').click()">📷 选择图片</button>
     <input type="file" id="iconFile" accept="image/*" style="display:none" onchange="addBookmark()">
     <button class="top-btn" onclick="addBookmark()">➕ 添加书签</button>
